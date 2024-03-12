@@ -1,0 +1,82 @@
+@startuml logical_design_diagram
+'skinparam linetype polyline
+'skinparam linetype ortho
+
+Object Journalist {
+    <u>JournalistID
+    <u>CPRNumber
+    FirstName
+    LastName
+    Address
+}
+
+Object Emails {
+    <u>JournalistID
+    Email
+}
+Emails::JournalistID --> Journalist::JournalistID
+
+Object PhoneNumbers {
+    <u>JournalistID
+    PhoneNumber
+}
+PhoneNumbers::JournalistID --> Journalist::JournalistID
+
+Object Address {
+    <u>JournalistID
+    StreetName
+    CivicNumber
+    City
+    ZIPCode
+    Country
+}
+Address::JournalistID --> Journalist::JournalistID
+
+Object Photo {
+    <u>PhotoID
+    <u>JournalistID
+    PhotoTitle
+    PhotoDate
+}
+
+Object Article {
+    <u>ArticleID
+    <u>JournalistID
+    ArticleTitle
+    Content
+    Topic
+    NrOfReaders
+}
+Article::JournalistID --> Journalist::JournalistID
+
+Object IncludesPhoto {
+    <u>PhotoID
+    <u>ArticleID
+}
+IncludesPhoto::PhotoID --> Photo::PhotoID
+IncludesPhoto::ArticleID --> Article::ArticleID
+
+Object Newspaper {
+    <u>NewspaperID
+    NewspaperTitle
+    Founded
+    Periodicity
+}
+
+Object Edition {
+    <u>EditionID
+    <u>NewspaperID
+    <u>JournalistID
+}
+Edition::NewspaperID --> Newspaper::NewspaperID
+Edition::JournalistID --> Journalist::JournalistID
+
+Object IncludesArticle {
+    <u>ArticleID
+    <u>EditionID
+}
+IncludesArticle::ArticleID --> Article::ArticleID
+IncludesArticle::EditionID --> Edition::EditionID
+
+
+@enduml
