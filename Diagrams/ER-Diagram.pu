@@ -1,6 +1,8 @@
 @startuml logical_design_diagram
-'skinparam linetype polyline
-'skinparam linetype ortho
+title DKAvisen ER-Diagram
+left to right direction
+skinparam linetype polyline
+' skinparam linetype ortho
 
 Object Journalist {
     <u>JournalistID
@@ -32,13 +34,6 @@ Object Address {
 }
 Address::JournalistID --> Journalist::JournalistID
 
-Object Photo {
-    <u>PhotoID
-    <u>JournalistID
-    PhotoTitle
-    PhotoDate
-}
-
 Object Article {
     <u>ArticleID
     <u>JournalistID
@@ -48,6 +43,13 @@ Object Article {
     NrOfReaders
 }
 Article::JournalistID --> Journalist::JournalistID
+
+Object Photo {
+    <u>PhotoID
+    <u>JournalistID
+    PhotoTitle
+    PhotoDate
+}
 
 Object IncludesPhoto {
     <u>PhotoID
