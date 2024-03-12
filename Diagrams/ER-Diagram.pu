@@ -5,7 +5,6 @@ skinparam linetype polyline
 ' skinparam linetype ortho
 
 Object Journalist {
-    <u>JournalistID
     <u>CPRNumber
     FirstName
     LastName
@@ -13,71 +12,68 @@ Object Journalist {
 }
 
 Object Emails {
-    <u>JournalistID
+    <u>CPRNumber
     Email
 }
-Emails::JournalistID --> Journalist::JournalistID
+Emails::CPRNumber --> Journalist::CPRNumber
 
 Object PhoneNumbers {
-    <u>JournalistID
+    <u>CPRNumber
     PhoneNumber
 }
-PhoneNumbers::JournalistID --> Journalist::JournalistID
+PhoneNumbers::CPRNumber --> Journalist::CPRNumber
 
 Object Address {
-    <u>JournalistID
+    <u>CPRNumber
     StreetName
     CivicNumber
     City
     ZIPCode
     Country
 }
-Address::JournalistID --> Journalist::JournalistID
+Address::CPRNumber --> Journalist::CPRNumber
 
 Object Article {
-    <u>ArticleID
-    <u>JournalistID
-    ArticleTitle
+    <u>ArticleTitle
+    <u>CPRNumber
     Content
     Topic
     NrOfReaders
 }
-Article::JournalistID --> Journalist::JournalistID
+Article::CPRNumber --> Journalist::CPRNumber
 
 Object Photo {
-    <u>PhotoID
-    <u>JournalistID
-    PhotoTitle
+    <u>PhotoTitle
+    <u>CPRNumber
     PhotoDate
 }
 
 Object IncludesPhoto {
-    <u>PhotoID
-    <u>ArticleID
+    <u>PhotoTitle
+    <u>ArticleTitle
 }
-IncludesPhoto::PhotoID --> Photo::PhotoID
-IncludesPhoto::ArticleID --> Article::ArticleID
+IncludesPhoto::PhotoTitle --> Photo::PhotoTitle
+IncludesPhoto::ArticleTitle --> Article::ArticleTitle
 
 Object Newspaper {
-    <u>NewspaperID
-    NewspaperTitle
+    <u>NewspaperTitle
     Founded
     Periodicity
 }
 
 Object Edition {
     <u>EditionID
-    <u>NewspaperID
-    <u>JournalistID
+    <u>NewspaperTitle
+    <u>CPRNumber
 }
-Edition::NewspaperID --> Newspaper::NewspaperID
-Edition::JournalistID --> Journalist::JournalistID
+Edition::NewspaperTitle --> Newspaper::NewspaperTitle
+Edition::CPRNumber --> Journalist::CPRNumber
 
 Object IncludesArticle {
-    <u>ArticleID
+    <u>ArticleTitle
     <u>EditionID
 }
-IncludesArticle::ArticleID --> Article::ArticleID
+IncludesArticle::ArticleTitle --> Article::ArticleTitle
 IncludesArticle::EditionID --> Edition::EditionID
 
 
