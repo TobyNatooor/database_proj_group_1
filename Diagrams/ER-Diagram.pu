@@ -1,0 +1,74 @@
+@startuml logical_design_diagram
+title DKAvisen ER-Diagram
+left to right direction
+skinparam linetype polyline
+' skinparam linetype ortho
+
+Object Journalist {
+    <u>CPRNumber
+    FirstName
+    LastName
+    StreetName
+    CivicNumber
+    City
+    ZIPCode
+    Country
+}
+
+Object Emails {
+    <u>CPRNumber
+    Email
+}
+Emails::CPRNumber --> Journalist::CPRNumber
+
+Object PhoneNumbers {
+    <u>CPRNumber
+    PhoneNumber
+}
+PhoneNumbers::CPRNumber --> Journalist::CPRNumber
+
+Object Article {
+    <u>ArticleTitle
+    <u>CPRNumber
+    Content
+    Topic
+    NrOfReaders
+}
+Article::CPRNumber --> Journalist::CPRNumber
+
+Object Photo {
+    <u>PhotoTitle
+    <u>CPRNumber
+    PhotoDate
+}
+
+Object IncludesPhoto {
+    <u>PhotoTitle
+    <u>ArticleTitle
+}
+IncludesPhoto::PhotoTitle --> Photo::PhotoTitle
+IncludesPhoto::ArticleTitle --> Article::ArticleTitle
+
+Object Newspaper {
+    <u>NewspaperTitle
+    Founded
+    Periodicity
+}
+
+Object Edition {
+    <u>NewspaperTitle
+    <u>EditionDate
+    <u>CPRNumber
+}
+Edition::NewspaperTitle --> Newspaper::NewspaperTitle
+Edition::CPRNumber --> Journalist::CPRNumber
+
+Object IncludesArticle {
+    <u>ArticleTitle
+    <u>EditionID
+}
+IncludesArticle::ArticleTitle --> Article::ArticleTitle
+IncludesArticle::EditionID --> Edition::EditionID
+
+
+@enduml
