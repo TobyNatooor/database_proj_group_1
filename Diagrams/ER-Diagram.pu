@@ -1,7 +1,7 @@
 @startuml logical_design_diagram
 title DKAvisen ER-Diagram
 left to right direction
-skinparam linetype polyline
+' skinparam linetype polyline
 ' skinparam linetype ortho
 
 Object Journalist {
@@ -29,12 +29,18 @@ PhoneNumbers::CPRNumber --> Journalist::CPRNumber
 
 Object Article {
     <u>ArticleTitle
-    <u>CPRNumber
     Content
     Topic
     NrOfReaders
 }
-Article::CPRNumber --> Journalist::CPRNumber
+
+Object Roles {
+    <u>CPRNumber
+    <u>ArticleTitle
+    Role
+}
+Roles::ArticleTitle --> Article::ArticleTitle
+Journalist::CPRNumber --> Roles::CPRNumber
 
 Object Photo {
     <u>PhotoTitle
@@ -68,7 +74,7 @@ Object IncludesArticle {
     <u>EditionID
 }
 IncludesArticle::ArticleTitle --> Article::ArticleTitle
-IncludesArticle::EditionID --> Edition::EditionID
+IncludesArticle::EditionID -u-> Edition::EditionID
 
 
 @enduml
