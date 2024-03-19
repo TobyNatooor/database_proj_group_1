@@ -8,7 +8,11 @@ Object Journalist {
     <u>CPRNumber
     FirstName
     LastName
-    Address
+    StreetName
+    CivicNumber
+    City
+    ZIPCode
+    Country
 }
 
 Object Emails {
@@ -22,16 +26,6 @@ Object PhoneNumbers {
     PhoneNumber
 }
 PhoneNumbers::CPRNumber --> Journalist::CPRNumber
-
-Object Address {
-    <u>CPRNumber
-    StreetName
-    CivicNumber
-    City
-    ZIPCode
-    Country
-}
-Address::CPRNumber --> Journalist::CPRNumber
 
 Object Article {
     <u>ArticleTitle
@@ -62,8 +56,8 @@ Object Newspaper {
 }
 
 Object Edition {
-    <u>EditionID
     <u>NewspaperTitle
+    <u>EditionDate
     <u>CPRNumber
 }
 Edition::NewspaperTitle --> Newspaper::NewspaperTitle
