@@ -1,16 +1,16 @@
 DROP TABLE IF EXISTS IncludesPhoto;
 DROP TABLE IF EXISTS Photo;
-DROP TABLE IF EXISTS Article;
 DROP TABLE IF EXISTS Writer;
-DROP TABLE IF EXISTS NewsPaper;
-DROP TABLE IF EXISTS Journalist;
+DROP TABLE IF EXISTS Article;
 DROP TABLE IF EXISTS Edition;
-DROP TABLE IF EXISTS Phone;
+DROP TABLE IF EXISTS NewsPaper;
 DROP TABLE IF EXISTS Email;
+DROP TABLE IF EXISTS Phone;
+DROP TABLE IF EXISTS Journalist;
 
 CREATE TABLE Journalist
 	(CPR			DECIMAL(6, 0), 
-	 FirstName		DATE, 
+	 FirstName		VARCHAR(50), 
      LastName		VARCHAR(50), 
      StreetName		VARCHAR(50), 
      StreetNumber	INTEGER, 
@@ -109,11 +109,11 @@ VALUES ('The Times', '2020-01-01', 'daily'),
        ('Weekly News', '2019-01-01', 'weekly');
 
 INSERT INTO Edition (Published, NewspaperTitle, Editor)
-VALUES ('2024-03-25', 'The Times', 123456),
+VALUES ('2024-03-18', 'The Times', 123456),
        ('2024-03-25', 'Weekly News', 234567);
 
 INSERT INTO Article (ArticleTitle, ContentText, Topic, NrOfReaders, Published, NewspaperTitle)
-VALUES ('Breaking News', 'Lorem ipsum dolor sit amet.', 'Breaking', 1000, '2024-03-25', 'The Times'),
+VALUES ('Breaking News', 'Lorem ipsum dolor sit amet.', 'Breaking', 1000, '2024-03-18', 'The Times'),
        ('Feature Story', 'Consectetur adipiscing elit.', 'Feature', 500, '2024-03-25', 'Weekly News');
 
 INSERT INTO Writer (ArticleTitle, CPR, Roles)
