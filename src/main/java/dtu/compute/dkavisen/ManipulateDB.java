@@ -1,47 +1,87 @@
 package dtu.compute.dkavisen;
 
 import java.sql.*;
+import io.github.cdimascio.dotenv.Dotenv;
+import java.text.SimpleDateFormat;
 
 public class ManipulateDB {
-    private String dbName;
+    private String host;
+    private String port;
+    private String database;
+    private String cp;
+    private Statement statement;
+    private SimpleDateFormat dateFormatter;
 
-    ManipulateDB(String dbName) {
-        this.dbName = dbName;
+    ManipulateDB(String host, String port, String database, String cp) throws SQLException {
+        this.host = host;
+        this.port = port;
+        this.database = database;
+        this.cp = cp;
+
+        Dotenv dotenv = Dotenv.load();
+        String username = dotenv.get("DB_USERNAME");
+        String password = dotenv.get("DB_PASSWORD");
+        String url = "jdbc:mysql://" + host + ":" + port + "/" + database + "?characterEncoding=" + cp;
+
+        Connection connection = DriverManager.getConnection(url, username, password);
+        statement = connection.createStatement();
+
+        dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
     }
 
     public void insertPhotoAndReporter(PhotoAndReporter photoAndReporter) {
-        String host = "localhost"; // host is "localhost" or "127.0.0.1"
-        String port = "3306"; // port is where to communicate with the RDBMS
-        String database = "dkavisendb"; // database containing tables to be queried
-        String cp = "utf8"; // Database codepage supporting Danish (i.e. æøåÆØÅ)
-        // Set username and password.
-        String username = "root"; // Username for connection
-        String password = "YES"; // Password for username
-
-        String url = "jdbc:mysql://" + host + ":" + port + "/" + database + "?characterEncoding=" + cp;
         try {
-            Connection connection = DriverManager.getConnection(url, username, password);
-            Statement statement = connection.createStatement();
 
             Reporter rep = photoAndReporter.getReporter();
             Photo photo = photoAndReporter.getPhoto();
-            statement.executeUpdate(
-            // System.out.println(
-                    "INSERT INTO Journalist (CPR, FirstName, LastName, StreetName, StreetNumber, ZipCode, Country) VALUES ("
-                            + String.format("%d, '%s', '%s', '%s', %d, %d, '%s')", rep.getCPR(), rep.getFirstName(),
-                                    rep.getLastName(), rep.getStreetName(), rep.getCivicNumber(), rep.getZIPCode(),
-                                    rep.getCountry()));
-            statement.executeUpdate(
-            // System.out.println(
-                    String.format("INSERT INTO Photo (PhotoTitle, PhotoDate, Reporter) VALUES ('%s', '%s', %d)",
-                            photo.getTitle(), photo.getDate(), rep.getCPR()));
 
-            connection.close();
+            if (reporterExists(rep.getCPR())) {
+                System.out.println("The reporter: '" + rep.getFirstName() + " " + rep.getLastName()
+                        + "' already exists in the database");
+            } else {
+                statement.executeUpdate(
+                        "INSERT INTO Journalist (CPR, FirstName, LastName, StreetName, StreetNumber, ZipCode, Country) VALUES ("
+                                + String.format("%d, '%s', '%s', '%s', %d, %d, '%s')", rep.getCPR(), rep.getFirstName(),
+                                        rep.getLastName(), rep.getStreetName(), rep.getCivicNumber(), rep.getZIPCode(),
+                                        rep.getCountry()));
+            }
+
+            if (photoExists(photo.getTitle())) {
+                System.out.println("A photo with the title: '" + photo.getTitle() + "' already exists in the database");
+            } else {
+                statement.executeUpdate(
+                        String.format("INSERT INTO Photo (PhotoTitle, PhotoDate, Reporter) VALUES ('%s', '%s', %d)",
+                                photo.getTitle(), dateFormatter.format(photo.getDate()), rep.getCPR()));
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
+    private boolean reporterExists(int cpr) throws SQLException {
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM Journalist WHERE CPR = " + cpr);
+        while (resultSet.next()) {
+            int rowValue = Integer.parseInt(resultSet.getString(1));
+            if (rowValue == cpr) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean photoExists(String photoTitle) throws SQLException {
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM Photo WHERE PhotoTitle = '" + photoTitle + "'");
+        while (resultSet.next()) {
+            String rowValue = resultSet.getString(1);
+            if (rowValue.equals(photoTitle)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void close() throws SQLException {
+        statement.close();
+    }
 }

@@ -31,10 +31,11 @@ class Main {
             try {
                 PhotosAndReportersLoader loader = new PhotosAndReportersLoader();
                 List<PhotoAndReporter> photosAndReporters = loader.loadPhotosAndReporters(fileName);
-                ManipulateDB manipulateDB = new ManipulateDB("dkavisendb");
+                ManipulateDB manipulateDB = new ManipulateDB("localhost", "3306", "dkavisendb", "utf8");
                 for (PhotoAndReporter photoAndReporter : photosAndReporters) {
                     manipulateDB.insertPhotoAndReporter(photoAndReporter);
                 }
+                manipulateDB.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }
