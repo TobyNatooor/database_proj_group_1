@@ -11,3 +11,9 @@ from Article natural join writer as w join journalist as j where j.CPR = w.write
 group by writer order by readers desc
 limit 10;
 
+-- Identify which topics, overall, attracted less reads that the average
+select Topic
+from article
+group by Topic
+having avg(nrOfReaders) < (select avg(nrOfReaders) from article);
+
