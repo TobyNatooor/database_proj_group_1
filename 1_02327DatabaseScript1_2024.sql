@@ -332,4 +332,4 @@ INSERT INTO Writer (ArticleTitle, Writer, WritingRole) VALUES
 ('Please let me out of this basment', 6038192057, 'ADVISOR'),
 ('Im so happy to be reporting news!!', 6038192057, 'ADVISOR'),
 ('Some Phone exploded, 2 teenagers dead', 9310857264, 'ADVISOR'),
-('Worlds biggest pop star Saylor Twift is dead', 9310857264, 'ADVISOR');
+('Worlds biggest pop star Saylor Twift is dead', 7730182936, 'ADVISOR');
