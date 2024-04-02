@@ -33,3 +33,19 @@ select Topic, avg(NrOfReaders) AverageNrOfReadersForTopic
 from Article
 group by Topic
 having avg(NrOfReaders) < (select avg(NrOfReaders) from Article);
+
+-- Identify which topics, overall, attracted less reads that the average (Alternativ)
+select Topic, TotalNrOfReadersForTopic
+from (
+    select Topic, sum(NrOfReaders) TotalNrOfReadersForTopic
+    from Article
+    group by Topic
+) AReaders
+where TotalNrOfReadersForTopic < (
+    select avg(TotalNrOfReadersForTopic)
+    from (
+        select Topic, SUM(NrOfReaders) TotalNrOfReadersForTopic
+        from Article
+        group by Topic
+    ) AvgR
+);
