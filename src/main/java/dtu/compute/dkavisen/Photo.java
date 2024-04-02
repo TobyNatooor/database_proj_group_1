@@ -1,4 +1,4 @@
-package main.java.dtu.compute.dkavisen;
+package dtu.compute.dkavisen;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

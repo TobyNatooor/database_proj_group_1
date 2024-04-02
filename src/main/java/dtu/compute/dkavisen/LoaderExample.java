@@ -1,4 +1,4 @@
-package main.java.dtu.compute.dkavisen;
+package dtu.compute.dkavisen;
 
 import java.io.IOException;
 import java.util.List;
