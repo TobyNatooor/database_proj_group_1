@@ -167,7 +167,7 @@ INSERT INTO Article (ArticleTitle, ContentText, Topic, NrOfReaders, Published, N
 ('Tech Giants Face Antitrust Probe', 'Government launches investigation into possible monopolistic practices by leading technology companies.', 'INTERNATIONAL', 18000, date("2023-03-14"), "Weekly Gazette"),
 ('Health Benefits of Meditation', 'Experts discuss the positive impact of meditation on mental and physical well-being.', 'CULTURE', 22000, date("2023-03-15"), "The Daily Reporter"),
 ('Sports Team Clinches Championship Victory', 'Exciting match recap as the hometown team secures the championship title.', 'SPORTS', 30000, date("2023-03-15"), "The Daily Reporter"),
-('Art Exhibition Showcases Local Talent', 'Review of the latest art exhibit featuring works by emerging artists in the community.', 'CULTURE', 15000, date("2023-03-13"), "Monthly Digest");
+('Art Exhibition Showcases Local Talent', 'Review of the latest art exhibit featuring works by emerging artists in the community.', 'CULTURE', 15001, date("2023-03-13"), "Monthly Digest");
 
 
 INSERT INTO IncludesPhoto (PhotoTitle, ArticleTitle) VALUES
