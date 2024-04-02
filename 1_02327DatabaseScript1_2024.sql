@@ -13,7 +13,7 @@ DROP TABLE IF EXISTS Phone;
 DROP TABLE IF EXISTS Email;
 
 CREATE TABLE Journalist (
-	CPR				VARCHAR(10),
+	CPR				DECIMAL(10,0),
 	FirstName		VARCHAR(60),
     LastName		VARCHAR(60),
 	StreetName		VARCHAR(60),
@@ -24,14 +24,14 @@ CREATE TABLE Journalist (
 );
 
 CREATE TABLE Email (
-	CPR				VARCHAR(10),
+	CPR				DECIMAL(10,0),
     Email			VARCHAR(60),
     PRIMARY KEY(Email),
     FOREIGN KEY(CPR) REFERENCES Journalist(CPR) -- ON DELETE CASCADE
 );
 
 CREATE TABLE Phone (
-	CPR				VARCHAR(10),
+	CPR				DECIMAL(10,0),
     PhoneNr			VARCHAR(60),
     PRIMARY KEY(PhoneNr),
     FOREIGN KEY(CPR) REFERENCES Journalist(CPR) -- ON DELETE CASCADE
@@ -46,8 +46,8 @@ CREATE TABLE Newspaper (
 
 CREATE TABLE Edition (
 	Published		Date,
-    NewspaperTitle	varchar(30),
-    Editor			varchar(10),
+    NewspaperTitle	varchar(60),
+    Editor			DECIMAL(10,0),
     primary key (Published, NewspaperTitle),
     foreign key (NewspaperTitle) references Newspaper(NewspaperTitle),
     foreign key (Editor) references Journalist(CPR)
@@ -68,7 +68,7 @@ CREATE TABLE Article (
 CREATE TABLE Photo (
 	PhotoTitle		VARCHAR(60),
     PhotoDate		DATE,
-    Reporter		VARCHAR(10),
+    Reporter		DECIMAL(10,0),
     PRIMARY KEY(PhotoTitle),
     FOREIGN KEY(Reporter) REFERENCES Journalist(CPR)
 );
@@ -83,7 +83,7 @@ CREATE TABLE IncludesPhoto (
 
 CREATE TABLE Writer (
 	ArticleTitle	VARCHAR(60),
-    Writer			VARCHAR(10),
+    Writer			DECIMAL(10,0),
     WritingRole		ENUM('LEADER', 'ADVISOR'),
     PRIMARY KEY(ArticleTitle, Writer, WritingRole),
     FOREIGN KEY(ArticleTitle) REFERENCES Article(ArticleTitle),
@@ -122,8 +122,27 @@ INSERT INTO Newspaper (NewspaperTitle, Founded, Periodicity) VALUES
 ("Barack Obama is not the president", date("2000-11-22"), 'WEEKLY'),
 ("It's too late to fix climate change", date("2003-01-03"), 'MONTHLY');
 
-INSERT INTO Article (ArticleTitle, ContentText, Topic, NrOfReaders, Published, NewspaperTitle) VALUES
-('Breaking News: Alien Invasion', 'Extraterrestrial beings spotted near Area 51.', 'SPORTS', 12345, NOW(), 'The X-Files Times'),
-('Recipe: Unicorn Cupcakes', 'Learn how to bake magical cupcakes with rainbow frosting.', 'CULTURE', 9876, NOW(), 'Enchanted Baking Gazette'),
-('Crypto Market Update', 'Bitcoin hits an all-time high, altcoins follow suit.', 'POLITICS', 54321, NOW(), 'Coin Chronicle');
+INSERT INTO Photo (PhotoTitle, PhotoDate, Reporter) VALUES
+('UFO Sighting', date("2024-03-31"), 1234567890),
+('Unicorn Cupcakes', date("2024-03-30"), 1047395734),
+('Bitcoin Surge', date("2024-03-29"), 0684353941);
 
+INSERT INTO Edition (Published, NewspaperTitle, Editor) VALUES
+(date("2021-03-11"), "The world is doing great, NOT!", 1234567890),
+(date("2001-04-11"), "Barack Obama is not the president", 9438259242),
+(date("2019-03-31"), "It's too late to fix climate change", 0684353941);
+
+INSERT INTO Article (ArticleTitle, ContentText, Topic, NrOfReaders, Published, NewspaperTitle) VALUES
+('Breaking News: Alien Invasion', 'Extraterrestrial beings spotted near Area 51.', 'SPORTS', 12345, date("2021-03-11"), "The world is doing great, NOT!"),
+('Recipe: Unicorn Cupcakes', 'Learn how to bake magical cupcakes with rainbow frosting.', 'CULTURE', 9876, date("2001-04-11"), "Barack Obama is not the president"),
+('Crypto Market Update', 'Bitcoin hits an all-time high, altcoins follow suit.', 'POLITICS', 54321, date("2019-03-31"), "It's too late to fix climate change");
+
+INSERT INTO IncludesPhoto (PhotoTitle, ArticleTitle) VALUES
+('UFO Sighting', 'Breaking News: Alien Invasion'),
+('Unicorn Cupcakes', 'Recipe: Unicorn Cupcakes'),
+('Bitcoin Surge', 'Crypto Market Update');
+
+INSERT INTO Writer (ArticleTitle, Writer, WritingRole) VALUES
+('Breaking News: Alien Invasion', 4953710423, 'LEADER'),
+('Recipe: Unicorn Cupcakes', 0684353941, 'ADVISOR'),
+('Crypto Market Update', 1047395734, 'LEADER');
