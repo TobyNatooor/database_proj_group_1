@@ -1,10 +1,4 @@
-/**
- * This class handles loading from a CSV data file.
- *
- * @author Giovanni Meroni
- * @author Thorbjørn Konstantinovitz
- *
- */
+package main.java.dtu.compute.dkavisen;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -17,6 +11,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * This class handles loading from a CSV data file.
+ *
+ * @author Giovanni Meroni
+ * @author Thorbjørn Konstantinovitz
+ *
+ */
 public class PhotosAndReportersLoader {
 
 	public static final String SEMICOLON_DELIMITER = ";";

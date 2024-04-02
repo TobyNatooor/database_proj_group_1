@@ -1,5 +1,8 @@
+package main.java.dtu.compute.dkavisen;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
 public class Photo {
     private final String title;
     private final Date date;

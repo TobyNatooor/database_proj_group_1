@@ -1,3 +1,5 @@
+package main.java.dtu.compute.dkavisen;
+
 public class Reporter {
 
     private final Integer cpr;
