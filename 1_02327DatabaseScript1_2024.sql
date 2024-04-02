@@ -307,7 +307,7 @@ INSERT INTO IncludesPhoto (PhotoTitle, ArticleTitle) VALUES
 ('Aerial Acrobatics Show','Please let me out of this basment'),
 ('Magical Fairy Garden','Im getting sick of working'),
 ('High-Speed Racing Event','Some guy won a sports thing'),
-('Haute Couture Runway Show','Breaking News: Everyone hates you')
+('Haute Couture Runway Show','Breaking News: Everyone hates you'),
 ('Ancient Ruins Discovery','Some Phone exploded, 2 teenagers dead'),
 ('Exotic Flower Exhibition','Worlds biggest pop star Saylor Twift is dead'),
 ('Artisan Chocolate Festival','Im so happy to be reporting news!!');
