@@ -1,6 +1,7 @@
-package main.java.dtu.compute.dkavisen;
+package dtu.compute.dkavisen;
 
 import java.io.File;
+import java.util.List;
 import java.util.Scanner;
 
 class Main {
@@ -25,7 +26,18 @@ class Main {
             }
             scanner.close();
 
-            String fileName = dataFiles[fileIndex].getAbsolutePath();
+            String fileName = dataFiles[fileIndex - 1].getAbsolutePath();
+
+            try {
+                PhotosAndReportersLoader loader = new PhotosAndReportersLoader();
+                List<PhotoAndReporter> photosAndReporters = loader.loadPhotosAndReporters(fileName);
+                ManipulateDB manipulateDB = new ManipulateDB("dkavisendb");
+                for (PhotoAndReporter photoAndReporter : photosAndReporters) {
+                    manipulateDB.insertPhotoAndReporter(photoAndReporter);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
