@@ -1,6 +1,6 @@
 DROP PROCEDURE IF EXISTS AddPhoto;
 DELIMITER //
-CREATE PROCEDURE AddPhoto(IN vPhotoTitle VARCHAR(50), IN vPhotoDate DATE, IN vReporter DECIMAL(6, 0))
+CREATE PROCEDURE AddPhoto(IN vPhotoTitle VARCHAR(60), IN vPhotoDate DATE, IN vReporter VARCHAR(10))
 BEGIN
     INSERT user(PhotoTitle,PhotoDate,Reporter)
         VALUES (vPhotoTitle,vPhotoDate,vReporter);
