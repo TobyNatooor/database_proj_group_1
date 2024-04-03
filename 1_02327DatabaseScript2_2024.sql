@@ -63,6 +63,14 @@ BEGIN
 END //
 DELIMITER ;
 
+DROP PROCEDURE IF EXISTS AddPhoto;
+DELIMITER //
+CREATE PROCEDURE AddPhoto(IN vPhotoTitle VARCHAR(60), IN vPhotoDate DATE, IN vReporter VARCHAR(10))
+BEGIN
+    INSERT user(PhotoTitle,PhotoDate,Reporter)
+        VALUES (vPhotoTitle,vPhotoDate,vReporter);
+END //
+
 DELIMITER //
 CREATE FUNCTION getAverageReaderPerArticle(topic ENUM('SPORTS','CULTURE','POLITICS','INTERNATIONAL','LOCAL')) RETURNS DOUBLE
 BEGIN

@@ -7,7 +7,7 @@ DROP TABLE IF EXISTS NewsPaper;
 DROP TABLE IF EXISTS Edition;
 DROP TABLE IF EXISTS Article;
 DROP TABLE IF EXISTS Photo;
-DROP TABLE IF EXISTS IncludeesPhoto;
+DROP TABLE IF EXISTS IncludesPhoto;
 DROP TABLE IF EXISTS Writer;
 DROP TABLE IF EXISTS Phone;
 DROP TABLE IF EXISTS Email;
@@ -185,3 +185,13 @@ INSERT INTO Writer (ArticleTitle, Writer, WritingRole) VALUES
 ('Local Hero Wins Marathon', 6829103847, 'LEADER'),
 ('Interview with a Celebrity Chef', 5738192046, 'ADVISOR'),
 ('Political Unrest in the Middle East', 2837465921, 'LEADER');
+
+SELECT * FROM Journalist;
+SELECT * FROM NewsPaper;
+SELECT * FROM Edition;
+SELECT * FROM Article;
+SELECT * FROM Photo;
+SELECT * FROM IncludesPhoto;
+SELECT * FROM Writer;
+SELECT * FROM Phone;
+SELECT * FROM Email;
