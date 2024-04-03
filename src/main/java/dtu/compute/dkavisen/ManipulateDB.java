@@ -5,19 +5,10 @@ import io.github.cdimascio.dotenv.Dotenv;
 import java.text.SimpleDateFormat;
 
 public class ManipulateDB {
-    private String host;
-    private String port;
-    private String database;
-    private String cp;
     private Statement statement;
     private SimpleDateFormat dateFormatter;
 
     ManipulateDB(String host, String port, String database, String cp) throws SQLException {
-        this.host = host;
-        this.port = port;
-        this.database = database;
-        this.cp = cp;
-
         Dotenv dotenv = Dotenv.load();
         String username = dotenv.get("DB_USERNAME");
         String password = dotenv.get("DB_PASSWORD");
