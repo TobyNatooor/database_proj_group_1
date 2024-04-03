@@ -122,3 +122,7 @@ DELIMITER ;
 -- Example of function use:
 -- select getTopicReaderSum('CULTURE');
 -- select getAverageReaderPerArticle('CULTURE');
+
+
+-- TRIGGERS
+
