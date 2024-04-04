@@ -4,9 +4,6 @@ USE dkavisendb;
 
 INSERT Journalist VALUES('0123456789', 'Bjørn', 'Normann', 'Oslovegen', 11, 64973, 'Norway');
 
-SELECT * FROM Phone
-WHERE CPR = 0123456789;
-
 SELECT * FROM Journalist
 WHERE CPR = 0123456789;
 
@@ -129,6 +126,16 @@ DELIMITER ;
 
 -- TRIGGERS
 
+SET SQL_SAFE_UPDATES = 0;
+
+INSERT Journalist VALUES('0123456789', 'Bjørn', 'Normann', 'Oslovegen', 11, 64973, 'Norway');
+INSERT Phone VALUES('0123456789', '04853478');
+
+DELETE FROM Phone
+WHERE CPR = 0123456789;
+DELETE FROM Journalist
+WHERE CPR = 0123456789;
+
 DELIMITER //
 CREATE TRIGGER PhoneNrFirstDigitNotZero
 BEFORE INSERT ON Phone
@@ -138,7 +145,7 @@ BEGIN
     SET firstDigit = LEFT(NEW.PhoneNr, 1);
 
     IF firstDigit = '0' THEN
-        SIGNAL SQLSTATE '45000'
+        SIGNAL SQLSTATE 'HY000'
         SET MESSAGE_TEXT = 'Phone number cannot start with zero.';
     END IF;
 END //
