@@ -2,7 +2,10 @@ USE dkavisendb;
 
 -- Examples of INSERT, UPDATE and DELETE statements:
 
-INSERT Journalist VALUES(0123456789, 'Bjørn', 'Normann', 'Oslovegen', 11, 64973, 'Norway');
+INSERT Journalist VALUES('0123456789', 'Bjørn', 'Normann', 'Oslovegen', 11, 64973, 'Norway');
+
+SELECT * FROM Phone
+WHERE CPR = 0123456789;
 
 SELECT * FROM Journalist
 WHERE CPR = 0123456789;
@@ -126,3 +129,20 @@ DELIMITER ;
 
 -- TRIGGERS
 
+DELIMITER //
+CREATE TRIGGER PhoneNrFirstDigitNotZero
+BEFORE INSERT ON Phone
+FOR EACH ROW
+BEGIN
+    DECLARE firstDigit VARCHAR(1);
+    SET firstDigit = LEFT(NEW.PhoneNr, 1);
+
+    IF firstDigit = '0' THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Phone number cannot start with zero.';
+    END IF;
+END //
+DELIMITER ;
+
+INSERT Journalist VALUES('0123456789', 'Bjørn', 'Normann', 'Oslovegen', 11, 64973, 'Norway');
+INSERT Phone VALUES('0123456789', '04853478');
