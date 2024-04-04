@@ -13,7 +13,7 @@ DROP TABLE IF EXISTS Phone;
 DROP TABLE IF EXISTS Email;
 
 CREATE TABLE Journalist (
-	CPR				DECIMAL(10,0),
+	CPR				VARCHAR(10),
 	FirstName		VARCHAR(60),
     LastName		VARCHAR(60),
 	StreetName		VARCHAR(60),
@@ -24,14 +24,14 @@ CREATE TABLE Journalist (
 );
 
 CREATE TABLE Email (
-	CPR				DECIMAL(10,0),
+	CPR				VARCHAR(10),
     Email			VARCHAR(60),
     PRIMARY KEY(Email),
     FOREIGN KEY(CPR) REFERENCES Journalist(CPR) -- ON DELETE CASCADE
 );
 
 CREATE TABLE Phone (
-	CPR				DECIMAL(10,0),
+	CPR				VARCHAR(10),
     PhoneNr			VARCHAR(60),
     PRIMARY KEY(PhoneNr),
     FOREIGN KEY(CPR) REFERENCES Journalist(CPR) -- ON DELETE CASCADE
@@ -47,7 +47,7 @@ CREATE TABLE Newspaper (
 CREATE TABLE Edition (
 	Published		Date,
     NewspaperTitle	varchar(60),
-    Editor			DECIMAL(10,0),
+    Editor			VARCHAR(10),
     primary key (Published, NewspaperTitle),
     foreign key (NewspaperTitle) references Newspaper(NewspaperTitle),
     foreign key (Editor) references Journalist(CPR)
@@ -68,7 +68,7 @@ CREATE TABLE Article (
 CREATE TABLE Photo (
 	PhotoTitle		VARCHAR(60),
     PhotoDate		DATE,
-    Reporter		DECIMAL(10,0),
+    Reporter		VARCHAR(10),
     PRIMARY KEY(PhotoTitle),
     FOREIGN KEY(Reporter) REFERENCES Journalist(CPR)
 );
@@ -83,7 +83,7 @@ CREATE TABLE IncludesPhoto (
 
 CREATE TABLE Writer (
 	ArticleTitle	VARCHAR(60),
-    Writer			DECIMAL(10,0),
+    Writer			VARCHAR(10),
     WritingRole		ENUM('LEADER', 'ADVISOR'),
     PRIMARY KEY(ArticleTitle, Writer, WritingRole),
     FOREIGN KEY(ArticleTitle) REFERENCES Article(ArticleTitle),
@@ -99,7 +99,7 @@ INSERT INTO Journalist (CPR, FirstName, LastName, StreetName, StreetNumber, ZipC
 (9438259242, "John", "Doe", "Prospect Street", "62", "32401", "China"),
 (1047395734, "Jane", "Doe", "Airplane Avenue", "97", "654195", "Chad"),
 (4953710423, "Bob", "Ross", "Main Street", "123", "55406", "America"),
-(0684353941, "Barack", "Obama", "Wall Street", "83", "22980", "America"),
+('0684353941', "Barack", "Obama", "Wall Street", "83", "22980", "America"),
 (2837465921, "Alice", "Smith", "Oak Street", "45", "90210", "USA"),
 (3847562901, "David", "Johnson", "Elm Avenue", "32", "10001", "USA"),
 (4738291056, "Maria", "Garcia", "Maple Road", "78", "60601", "USA"),
@@ -141,7 +141,7 @@ INSERT INTO Email (CPR, Email) VALUES
 (1047395734, "voros78310@felibg.com"),
 (1047395734, "1234asdzx@felibg.com"),
 (4953710423, "Paint4Life@hotmail.com"),
-(0684353941, "NotPresident@gmail.com"),
+('0684353941', "NotPresident@gmail.com"),
 (2837465921, "alice.smith@example.com"),
 (3847562901, "david.johnson@example.com"),
 (4738291056, "maria.garcia@example.com"),
@@ -183,7 +183,7 @@ INSERT INTO Phone (CPR, PhoneNr) VALUES
 (9438259242, 30485731),
 (1047395734, 42843713),
 (4953710423, 04853472),
-(0684353941, 49244567),
+('0684353941', 49244567),
 (2837465921, 12345678),
 (3847562901, 23456789),
 (4738291056, 34567890),
@@ -230,7 +230,7 @@ INSERT INTO Newspaper (NewspaperTitle, Founded, Periodicity) VALUES
 INSERT INTO Photo (PhotoTitle, PhotoDate, Reporter) VALUES
 ('UFO Sighting', date("2024-03-31"), 1234567890),
 ('Unicorn Cupcakes', date("2024-03-30"), 1047395734),
-('Bitcoin Surge', date("2024-03-29"), 0684353941),
+('Bitcoin Surge', date("2024-03-29"), '0684353941'),
 ('Cityscape at Night', date("2024-03-15"), 2837465921),
 ('Fashion Show Highlights', date("2024-03-14"), 3847562901),
 ('Wildlife Safari Adventure', date("2024-03-13"), 4738291056),
@@ -267,7 +267,7 @@ INSERT INTO Photo (PhotoTitle, PhotoDate, Reporter) VALUES
 INSERT INTO Edition (Published, NewspaperTitle, Editor) VALUES
 (date("2021-03-11"), "The world is doing great, NOT!", 1234567890),
 (date("2001-04-11"), "Barack Obama is not the president", 9438259242),
-(date("2019-03-31"), "It's too late to fix climate change", 0684353941),
+(date("2019-03-31"), "It's too late to fix climate change", '0684353941'),
 (date("2023-03-15"), "The Daily Reporter", 2837465921),
 (date("2023-03-14"), "Weekly Gazette", 3847562901),
 (date("2023-03-13"), "Monthly Digest", 4738291056);
@@ -314,7 +314,7 @@ INSERT INTO IncludesPhoto (PhotoTitle, ArticleTitle) VALUES
 
 INSERT INTO Writer (ArticleTitle, Writer, WritingRole) VALUES
 ('Breaking News: Alien Invasion', 4953710423, 'LEADER'),
-('Recipe: Unicorn Cupcakes', 0684353941, 'ADVISOR'),
+('Recipe: Unicorn Cupcakes', '0684353941', 'ADVISOR'),
 ('Crypto Market Update', 1047395734, 'LEADER'),
 ('Local Hero Wins Marathon', 6829103847, 'LEADER'),
 ('Interview with a Celebrity Chef', 5738192046, 'ADVISOR'),
