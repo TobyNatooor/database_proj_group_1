@@ -151,5 +151,5 @@ BEGIN
 END //
 DELIMITER ;
 
--- INSERT Journalist VALUES('0123456789', 'Bjørn', 'Normann', 'Oslovegen', 11, 64973, 'Norway');
--- INSERT Phone VALUES('0123456789', '04853478');
+INSERT Journalist VALUES('0123456789', 'Bjørn', 'Normann', 'Oslovegen', 11, 64973, 'Norway');
+INSERT Phone VALUES('0123456789', '04853478');
