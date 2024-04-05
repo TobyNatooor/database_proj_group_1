@@ -4,38 +4,38 @@ USE dkavisendb;
 
 INSERT Journalist VALUES('0123456789', 'Bjørn', 'Normann', 'Oslovegen', 11, 64973, 'Norway');
 
-SELECT * FROM Journalist
-WHERE CPR = '0123456789';
+-- SELECT * FROM Journalist
+-- WHERE CPR = '0123456789';
 
 INSERT Newspaper VALUES
 	('Oslo Tidende', '2003-06-22', 'DAILY'),
     ('Bjørns Tanker', '2017-11-15', 'MONTHLY');
     
-SELECT * FROM Newspaper;
+-- SELECT * FROM Newspaper;
 
 UPDATE Newspaper SET Periodicity = 'WEEKLY'
 WHERE NewspaperTitle = 'Bjørns Tanker';
 
-SELECT * FROM Newspaper;
+-- SELECT * FROM Newspaper;
 
 UPDATE Journalist
 SET StreetName = 'Holmegården', StreetNumber = 15
 WHERE CPR = '0123456789';
 
-SELECT * FROM Journalist
-WHERE CPR = '0123456789';
+-- SELECT * FROM Journalist
+-- WHERE CPR = '0123456789';
 
 DELETE FROM Journalist
 WHERE CPR = '0123456789';
 
-SELECT * FROM Journalist
-WHERE CPR = '0123456789';
+-- SELECT * FROM Journalist
+-- WHERE CPR = '0123456789';
 
 DELETE FROM Newspaper
 WHERE NewspaperTitle = 'Oslo Tidende'
 OR NewspaperTitle = 'Bjørns Tanker';
 
-SELECT * FROM Newspaper;
+-- SELECT * FROM Newspaper;
 
 -- Lists the top 10 journalists with most amount of total readers
 SELECT FirstName, LastName, SUM(NrOfReaders) AS Readers
@@ -128,13 +128,13 @@ DELIMITER ;
 
 SET SQL_SAFE_UPDATES = 0;
 
-INSERT Journalist VALUES('0123456789', 'Bjørn', 'Normann', 'Oslovegen', 11, 64973, 'Norway');
-INSERT Phone VALUES('0123456789', '04853478');
+-- INSERT Journalist VALUES('0123456789', 'Bjørn', 'Normann', 'Oslovegen', 11, 64973, 'Norway');
+-- INSERT Phone VALUES('0123456789', '04853478');
 
-DELETE FROM Phone
-WHERE CPR = '0123456789';
-DELETE FROM Journalist
-WHERE CPR = '0123456789';
+-- DELETE FROM Phone
+-- WHERE CPR = '0123456789';
+-- DELETE FROM Journalist
+-- WHERE CPR = '0123456789';
 
 DELIMITER //
 CREATE TRIGGER PhoneNrFirstDigitNotZero
@@ -151,5 +151,5 @@ BEGIN
 END //
 DELIMITER ;
 
-INSERT Journalist VALUES('0123456789', 'Bjørn', 'Normann', 'Oslovegen', 11, 64973, 'Norway');
-INSERT Phone VALUES('0123456789', '04853478');
+-- INSERT Journalist VALUES('0123456789', 'Bjørn', 'Normann', 'Oslovegen', 11, 64973, 'Norway');
+-- INSERT Phone VALUES('0123456789', '04853478');
