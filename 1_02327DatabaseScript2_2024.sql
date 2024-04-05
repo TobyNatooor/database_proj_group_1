@@ -38,52 +38,52 @@ OR NewspaperTitle = 'Bjørns Tanker';
 SELECT * FROM Newspaper;
 
 -- Lists the top 10 journalists with most amount of total readers
-select FirstName, LastName, SUM(NrOfReaders) as Readers
-from Article natural join Writer as w join Journalist as j where j.CPR = w.writer
-group by Writer order by Readers desc
-limit 10;
+SELECT FirstName, LastName, SUM(NrOfReaders) AS Readers
+FROM Article NATURAL JOIN Writer AS w JOIN Journalist AS j WHERE j.CPR = w.writer
+GROUP BY Writer ORDER BY Readers DESC
+LIMIT 10;
 
 -- Identify which journalists were both writers and reporters, having shot at least a photo that was used for a news article they wrote
-select w.ArticleTitle, j.FirstName, j.LastName
-from Writer w
-join IncludesPhoto ip on w.ArticleTitle = ip.ArticleTitle
-join Photo p on ip.PhotoTitle = p.PhotoTitle
-join Journalist j on p.Reporter = j.CPR
-where j.CPR = w.writer;
+SELECT w.ArticleTitle, j.FirstName, j.LastName
+FROM Writer w
+JOIN IncludesPhoto ip ON w.ArticleTitle = ip.ArticleTitle
+JOIN Photo p ON ip.PhotoTitle = p.PhotoTitle
+JOIN Journalist j ON p.Reporter = j.CPR
+WHERE j.CPR = w.writer;
 
 -- Showing the most read article in each topic
-select Topic, ArticleTitle as Most_Read, max(NrOfReaders) as Readers
-from Article
-group by Topic order by Readers desc;
+SELECT Topic, ArticleTitle AS Most_Read, MAX(NrOfReaders) AS Readers
+FROM Article
+GROUP BY Topic ORDER BY Readers DESC;
 
 -- Show reporters whose photos were never used more than once
-select distinct j.FirstName, j.LastName
-from Journalist j
-join Photo p on j.CPR = p.Reporter
-left join IncludesPhoto ip on p.PhotoTitle = ip.PhotoTitle
-group by j.CPR, j.FirstName
-having COUNT(distinct p.PhotoTitle) > 0
-and COUNT(distinct ip.ArticleTitle) < 2;
+SELECT DISTINCT j.FirstName, j.LastName
+FROM Journalist j
+JOIN Photo p ON j.CPR = p.Reporter
+LEFT JOIN IncludesPhoto ip ON p.PhotoTitle = ip.PhotoTitle
+GROUP BY j.CPR, j.FirstName
+HAVING COUNT(DISTINCT p.PhotoTitle) > 0
+AND COUNT(DISTINCT ip.ArticleTitle) < 2;
 
 -- Identify which topics, overall, attracted less reads that the average
-select Topic, avg(NrOfReaders) AverageNrOfReadersForTopic
-from Article
-group by Topic
-having avg(NrOfReaders) < (select avg(NrOfReaders) from Article);
+SELECT Topic, AVG(NrOfReaders) AverageNrOfReadersForTopic
+FROM Article
+GROUP BY Topic
+HAVING AVG(NrOfReaders) < (SELECT AVG(NrOfReaders) FROM Article);
 
 -- Identify which topics, overall, attracted less reads that the average (Alternativ)
-select Topic, TotalNrOfReadersForTopic
-from (
-    select Topic, sum(NrOfReaders) TotalNrOfReadersForTopic
-    from Article
-    group by Topic
+SELECT Topic, TotalNrOfReadersForTopic
+FROM (
+    SELECT Topic, SUM(NrOfReaders) TotalNrOfReadersForTopic
+    FROM Article
+    GROUP BY Topic
 ) AReaders
-where TotalNrOfReadersForTopic < (
-    select avg(TotalNrOfReadersForTopic)
-    from (
-        select Topic, SUM(NrOfReaders) TotalNrOfReadersForTopic
-        from Article
-        group by Topic
+WHERE TotalNrOfReadersForTopic < (
+    SELECT AVG(TotalNrOfReadersForTopic)
+    FROM (
+        SELECT Topic, SUM(NrOfReaders) TotalNrOfReadersForTopic
+        FROM Article
+        GROUP BY Topic
     ) AvgR
 );
 
