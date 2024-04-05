@@ -1,10 +1,4 @@
-/**
- * This class handles loading from a CSV data file.
- *
- * @author Giovanni Meroni
- * @author Thorbjørn Konstantinovitz
- *
- */
+package dtu.compute.dkavisen;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -17,6 +11,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * This class handles loading from a CSV data file.
+ *
+ * @author Giovanni Meroni
+ * @author Thorbjørn Konstantinovitz
+ *
+ */
 public class PhotosAndReportersLoader {
 
 	public static final String SEMICOLON_DELIMITER = ";";
@@ -52,7 +53,7 @@ public class PhotosAndReportersLoader {
 						} catch (ParseException e) {
 							throw new NumberFormatException("Invalid value (" + values.get(1) + ") for date at line " + lineNbr);
 						}
-						Integer cpr = Integer.valueOf(values.get(2));
+						String cpr = values.get(2);
 						String firstName = values.get(3);
 						String lastName = values.get(4);
 						String streetName = values.get(5);
