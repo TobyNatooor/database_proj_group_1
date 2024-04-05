@@ -22,7 +22,6 @@ public class ManipulateDB {
 
     public void insertPhotoAndReporter(PhotoAndReporter photoAndReporter) {
         try {
-
             Reporter rep = photoAndReporter.getReporter();
             Photo photo = photoAndReporter.getPhoto();
 
@@ -31,11 +30,10 @@ public class ManipulateDB {
                         + "' already exists in the database");
             } else {
                 statement.executeUpdate(
-                        "INSERT INTO Journalist (CPR, FirstName, LastName, StreetName, StreetNumber, ZipCode, Country) VALUES ("
-                                + String.format("'%s', '%s', '%s', '%s', %d, %d, '%s')", rep.getCPR(),
-                                        rep.getFirstName(),
-                                        rep.getLastName(), rep.getStreetName(), rep.getCivicNumber(), rep.getZIPCode(),
-                                        rep.getCountry()));
+                        String.format(
+                                "INSERT INTO Journalist (CPR, FirstName, LastName, StreetName, StreetNumber, ZipCode, Country) VALUES ( '%s', '%s', '%s', '%s', %d, %d, '%s')",
+                                rep.getCPR(), rep.getFirstName(), rep.getLastName(), rep.getStreetName(),
+                                rep.getCivicNumber(), rep.getZIPCode(), rep.getCountry()));
             }
 
             if (photoExists(photo.getTitle())) {

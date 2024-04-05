@@ -10,6 +10,10 @@ class Main {
             // print out the data files in the data folder
             File dataFolder = new File("data");
             File[] dataFiles = dataFolder.listFiles();
+            if (dataFiles == null || dataFiles.length == 0) {
+                System.out.println("No data files found in the data folder.");
+                return;
+            }
             printDataFileOptions(dataFiles);
 
             // read the file index from the user
@@ -28,17 +32,11 @@ class Main {
 
             String fileName = dataFiles[fileIndex - 1].getAbsolutePath();
 
-            try {
-                PhotosAndReportersLoader loader = new PhotosAndReportersLoader();
-                List<PhotoAndReporter> photosAndReporters = loader.loadPhotosAndReporters(fileName);
-                ManipulateDB manipulateDB = new ManipulateDB("localhost", "3306", "dkavisendb", "utf8");
-                for (PhotoAndReporter photoAndReporter : photosAndReporters) {
-                    manipulateDB.insertPhotoAndReporter(photoAndReporter);
-                }
-                manipulateDB.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            insertIntoDB(fileName);
+        } else if (args.length == 1) {
+            insertIntoDB(args[0]);
+        } else {
+            System.out.println("Invalid number of arguments.");
         }
     }
 
@@ -50,6 +48,25 @@ class Main {
             }
         }
         System.out.println();
+    }
 
+    private static void insertIntoDB(String fileName) {
+        PhotosAndReportersLoader loader = new PhotosAndReportersLoader();
+        try {
+            List<PhotoAndReporter> photosAndReporters = loader.loadPhotosAndReporters(fileName);
+            try {
+                ManipulateDB manipulateDB = new ManipulateDB("localhost", "3306", "dkavisendb", "utf8");
+                for (PhotoAndReporter photoAndReporter : photosAndReporters) {
+                    manipulateDB.insertPhotoAndReporter(photoAndReporter);
+                }
+                manipulateDB.close();
+
+            } catch (Exception e) {
+                System.out.println("failed to establish a connection to the database");
+            }
+
+        } catch (Exception e) {
+            System.out.println("failed to load data from the file.");
+        }
     }
 }

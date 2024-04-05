@@ -13,8 +13,9 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>1.7</maven.compiler.source>
-        <maven.compiler.target>1.7</maven.compiler.target>
+        <maven.compiler.release>17</maven.compiler.release>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
     </properties>
 
     <dependencies>
@@ -27,6 +28,38 @@
             <groupId>io.github.cdimascio</groupId>
             <artifactId>java-dotenv</artifactId>
             <version>5.0.0</version>
-        </dependency>        
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
+            <version>3.2.0</version>
+        </dependency>
+
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.4.0</version>
+                <configuration>
+                    <mainClass>dtu.compute.dkavisen.Main</mainClass>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                  <archive>
+                    <manifest>
+                      <mainClass>dtu.compute.dkavisen.Main</mainClass>
+                    </manifest>
+                  </archive>
+                  <descriptorRefs>
+                    <descriptorRef>jar-with-dependencies</descriptorRef>
+                  </descriptorRefs>
+                </configuration>
+              </plugin>          
+        </plugins>
+    </build>
 </project>
