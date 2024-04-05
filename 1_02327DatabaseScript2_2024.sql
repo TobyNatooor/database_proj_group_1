@@ -5,7 +5,7 @@ USE dkavisendb;
 INSERT Journalist VALUES('0123456789', 'Bjørn', 'Normann', 'Oslovegen', 11, 64973, 'Norway');
 
 SELECT * FROM Journalist
-WHERE CPR = 0123456789;
+WHERE CPR = '0123456789';
 
 INSERT Newspaper VALUES
 	('Oslo Tidende', '2003-06-22', 'DAILY'),
@@ -20,16 +20,16 @@ SELECT * FROM Newspaper;
 
 UPDATE Journalist
 SET StreetName = 'Holmegården', StreetNumber = 15
-WHERE CPR = 0123456789;
+WHERE CPR = '0123456789';
 
 SELECT * FROM Journalist
-WHERE CPR = 0123456789;
+WHERE CPR = '0123456789';
 
 DELETE FROM Journalist
-WHERE CPR = 0123456789;
+WHERE CPR = '0123456789';
 
 SELECT * FROM Journalist
-WHERE CPR = 0123456789;
+WHERE CPR = '0123456789';
 
 DELETE FROM Newspaper
 WHERE NewspaperTitle = 'Oslo Tidende'
@@ -132,9 +132,9 @@ INSERT Journalist VALUES('0123456789', 'Bjørn', 'Normann', 'Oslovegen', 11, 649
 INSERT Phone VALUES('0123456789', '04853478');
 
 DELETE FROM Phone
-WHERE CPR = 0123456789;
+WHERE CPR = '0123456789';
 DELETE FROM Journalist
-WHERE CPR = 0123456789;
+WHERE CPR = '0123456789';
 
 DELIMITER //
 CREATE TRIGGER PhoneNrFirstDigitNotZero
