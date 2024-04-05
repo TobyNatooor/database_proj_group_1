@@ -2,7 +2,7 @@ package dtu.compute.dkavisen;
 
 public class Reporter {
 
-    private final Integer cpr;
+    private final String cpr;
     private final String firstName;
     private final String lastName;
     private final String streetName;
@@ -10,7 +10,7 @@ public class Reporter {
     private final Integer zipCode;
     private final String country;
 
-    public Reporter(Integer cpr, String firstName, String lastName, String streetName, Integer civicNumber, Integer zipCode, String country) {
+    public Reporter(String cpr, String firstName, String lastName, String streetName, Integer civicNumber, Integer zipCode, String country) {
         this.cpr = cpr;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -20,7 +20,7 @@ public class Reporter {
         this.country = country;
     }
 
-    public Integer getCPR() { return cpr; }
+    public String getCPR() { return cpr; }
 
     public String getFirstName() {
         return firstName;

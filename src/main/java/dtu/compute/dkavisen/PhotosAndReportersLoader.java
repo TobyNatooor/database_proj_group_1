@@ -53,7 +53,7 @@ public class PhotosAndReportersLoader {
 						} catch (ParseException e) {
 							throw new NumberFormatException("Invalid value (" + values.get(1) + ") for date at line " + lineNbr);
 						}
-						Integer cpr = Integer.valueOf(values.get(2));
+						String cpr = values.get(2);
 						String firstName = values.get(3);
 						String lastName = values.get(4);
 						String streetName = values.get(5);

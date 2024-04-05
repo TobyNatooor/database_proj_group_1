@@ -32,7 +32,8 @@ public class ManipulateDB {
             } else {
                 statement.executeUpdate(
                         "INSERT INTO Journalist (CPR, FirstName, LastName, StreetName, StreetNumber, ZipCode, Country) VALUES ("
-                                + String.format("%d, '%s', '%s', '%s', %d, %d, '%s')", rep.getCPR(), rep.getFirstName(),
+                                + String.format("'%s', '%s', '%s', '%s', %d, %d, '%s')", rep.getCPR(),
+                                        rep.getFirstName(),
                                         rep.getLastName(), rep.getStreetName(), rep.getCivicNumber(), rep.getZIPCode(),
                                         rep.getCountry()));
             }
@@ -41,7 +42,7 @@ public class ManipulateDB {
                 System.out.println("A photo with the title: '" + photo.getTitle() + "' already exists in the database");
             } else {
                 statement.executeUpdate(
-                        String.format("INSERT INTO Photo (PhotoTitle, PhotoDate, Reporter) VALUES ('%s', '%s', %d)",
+                        String.format("INSERT INTO Photo (PhotoTitle, PhotoDate, Reporter) VALUES ('%s', '%s', '%s')",
                                 photo.getTitle(), dateFormatter.format(photo.getDate()), rep.getCPR()));
             }
 
@@ -50,11 +51,11 @@ public class ManipulateDB {
         }
     }
 
-    private boolean reporterExists(int cpr) throws SQLException {
-        ResultSet resultSet = statement.executeQuery("SELECT * FROM Journalist WHERE CPR = " + cpr);
+    private boolean reporterExists(String cpr) throws SQLException {
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM Journalist WHERE CPR = '" + cpr + "'");
         while (resultSet.next()) {
-            int rowValue = Integer.parseInt(resultSet.getString(1));
-            if (rowValue == cpr) {
+            String rowValue = resultSet.getString(1);
+            if (rowValue.equals(cpr)) {
                 return true;
             }
         }
